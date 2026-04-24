@@ -1,0 +1,117 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h4 class="modal-title">{{ isEditing ? 'Edit Transaction' : 'Add Transaction' }}</h4>
+      <button class="modal-close" (click)="onClose()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-row">
+        <div class="mb-3 flex-grow-1">
+          <label class="form-label">Title <span class="required">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            [class.is-invalid]="titleCtrl.invalid && titleCtrl.touched"
+            formControlName="title"
+            placeholder="e.g. Groceries at Carrefour"
+          />
+          @if (titleCtrl.invalid && titleCtrl.touched) {
+            <div class="invalid-feedback d-block">
+              @if (titleCtrl.errors?.['required']) { Title is required. }
+              @if (titleCtrl.errors?.['minlength']) { At least 2 characters. }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row-2">
+        <div class="mb-3">
+          <label class="form-label">Amount (AED) <span class="required">*</span></label>
+          <input
+            type="number"
+            class="form-control"
+            [class.is-invalid]="amountCtrl.invalid && amountCtrl.touched"
+            formControlName="amount"
+            placeholder="0.00"
+            min="0.01"
+          />
+          @if (amountCtrl.invalid && amountCtrl.touched) {
+            <div class="invalid-feedback d-block">
+              @if (amountCtrl.errors?.['required']) { Amount is required. }
+              @if (amountCtrl.errors?.['min']) { Amount must be greater than 0. }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Date <span class="required">*</span></label>
+          <input
+            type="date"
+            class="form-control"
+            [class.is-invalid]="dateCtrl.invalid && dateCtrl.touched"
+            formControlName="date"
+          />
+          @if (dateCtrl.invalid && dateCtrl.touched) {
+            <div class="invalid-feedback d-block">Date is required.</div>
+          }
+        </div>
+      </div>
+
+      <div class="form-row-2">
+        <div class="mb-3">
+          <label class="form-label">Type <span class="required">*</span></label>
+          <div class="type-toggle">
+            <button
+              type="button"
+              class="type-btn"
+              [class.active-expense]="typeCtrl.value === 'expense'"
+              (click)="form.patchValue({ type: 'expense' })">
+              <i class="bi bi-arrow-up-circle me-1"></i> Expense
+            </button>
+            <button
+              type="button"
+              class="type-btn"
+              [class.active-income]="typeCtrl.value === 'income'"
+              (click)="form.patchValue({ type: 'income' })">
+              <i class="bi bi-arrow-down-circle me-1"></i> Income
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Category <span class="required">*</span></label>
+          <select class="form-select" formControlName="category">
+            <option value="housing">Housing</option>
+            <option value="food">Food</option>
+            <option value="transport">Transport</option>
+            <option value="utilities">Utilities</option>
+            <option value="leisure">Leisure</option>
+            <option value="income">Income</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Note (optional)</label>
+        <textarea
+          class="form-control"
+          formControlName="note"
+          rows="2"
+          placeholder="Add a note...">
+        </textarea>
+      </div>
+
+      <div class="modal-footer-row">
+        <button type="button" class="btn btn-light" (click)="onClose()">Cancel</button>
+        <button type="submit" class="btn-primary-brand">
+          <i class="bi bi-check-lg me-1"></i>
+          {{ isEditing ? 'Save Changes' : 'Add Transaction' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

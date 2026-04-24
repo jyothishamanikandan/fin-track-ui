@@ -1,0 +1,134 @@
+.month-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .form-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.stat-card {
+  padding: 1.125rem;
+  display: flex;
+  gap: 0.875rem;
+  align-items: flex-start;
+}
+
+.stat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.stat-body { flex: 1; }
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin: 0 0 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.1rem;
+}
+
+.stat-sub {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chart-card {
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.875rem;
+  border-bottom: var(--border);
+}
+
+.chart-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.chart-badge {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: #F3F4F6;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+.chart-body {
+  position: relative;
+  height: 280px;
+}
+
+.table-custom {
+  font-size: 0.875rem;
+  margin: 0;
+
+  thead th {
+    background: #F8F9FA;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 0.75rem 1rem;
+    border-bottom: var(--border);
+  }
+
+  tbody td {
+    padding: 0.75rem 1rem;
+    border-bottom: var(--border);
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  .active-row {
+    background: var(--primary-light) !important;
+    td { font-weight: 500; }
+  }
+}
+
+@media (max-width: 1200px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .stats-row { grid-template-columns: 1fr; }
+  .chart-body { height: 200px; }
+  .month-selector { flex-direction: column; align-items: flex-start; }
+}

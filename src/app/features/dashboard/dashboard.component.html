@@ -1,0 +1,64 @@
+<div class="page-layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+      <p class="subtitle">{{ currentMonth }} &middot; AED</p>
+    </div>
+
+    <!-- Metric Cards -->
+    <div class="metrics-grid">
+      <app-metric-card
+        label="Total Income"
+        [value]="txService.totalIncome()"
+        icon="bi-arrow-down-circle-fill"
+        iconBg="rgba(29,158,117,0.12)"
+        valueClass="positive">
+      </app-metric-card>
+
+      <app-metric-card
+        label="Total Expenses"
+        [value]="txService.totalExpenses()"
+        icon="bi-arrow-up-circle-fill"
+        iconBg="rgba(226,75,74,0.12)"
+        valueClass="negative">
+      </app-metric-card>
+
+      <app-metric-card
+        label="Net Balance"
+        [value]="txService.netBalance()"
+        icon="bi-wallet2"
+        iconBg="rgba(74,144,226,0.12)"
+        [valueClass]="txService.netBalance() >= 0 ? 'positive' : 'negative'">
+      </app-metric-card>
+
+      <app-metric-card
+        label="Savings Rate"
+        [value]="txService.savingsRate()"
+        icon="bi-piggy-bank-fill"
+        iconBg="rgba(239,159,39,0.12)"
+        [isCurrency]="false"
+        suffix="%"
+        [valueClass]="txService.savingsRate() >= 20 ? 'positive' : txService.savingsRate() >= 10 ? 'warning' : 'negative'"
+        subtext="of monthly income">
+      </app-metric-card>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-grid">
+      <app-spending-donut></app-spending-donut>
+      <app-budget-progress></app-budget-progress>
+    </div>
+
+    <!-- Monthly Trend -->
+    <div class="trend-row">
+      <app-monthly-trend></app-monthly-trend>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="recent-row">
+      <app-recent-transactions></app-recent-transactions>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,70 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h4 class="modal-title">{{ isEditing ? 'Edit Budget' : 'Add Budget' }}</h4>
+      <button class="modal-close" (click)="onClose()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="mb-3">
+        <label class="form-label">Category Name <span class="required">*</span></label>
+        <input
+          type="text"
+          class="form-control"
+          [class.is-invalid]="categoryCtrl.invalid && categoryCtrl.touched"
+          formControlName="category"
+          placeholder="e.g. Dining Out"
+        />
+        @if (categoryCtrl.invalid && categoryCtrl.touched) {
+          <div class="invalid-feedback d-block">
+            @if (categoryCtrl.errors?.['required']) { Category name is required. }
+            @if (categoryCtrl.errors?.['minlength']) { At least 2 characters. }
+          </div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Monthly Limit (AED) <span class="required">*</span></label>
+        <input
+          type="number"
+          class="form-control"
+          [class.is-invalid]="limitCtrl.invalid && limitCtrl.touched"
+          formControlName="limit"
+          placeholder="0"
+          min="1"
+        />
+        @if (limitCtrl.invalid && limitCtrl.touched) {
+          <div class="invalid-feedback d-block">
+            @if (limitCtrl.errors?.['required']) { Limit is required. }
+            @if (limitCtrl.errors?.['min']) { Limit must be at least AED 1. }
+          </div>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Color</label>
+        <div class="color-picker">
+          @for (color of colorOptions; track color) {
+            <button
+              type="button"
+              class="color-dot"
+              [style.background]="color"
+              [class.selected]="colorCtrl.value === color"
+              (click)="selectColor(color)">
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="modal-footer-row">
+        <button type="button" class="btn btn-light" (click)="onClose()">Cancel</button>
+        <button type="submit" class="btn-primary-brand">
+          <i class="bi bi-check-lg me-1"></i>
+          {{ isEditing ? 'Save Changes' : 'Add Budget' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

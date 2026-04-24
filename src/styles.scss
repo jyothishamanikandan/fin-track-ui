@@ -1,0 +1,233 @@
+:root {
+  --primary: #1D9E75;
+  --primary-light: #E1F5EE;
+  --primary-dark: #0F6E56;
+  --danger: #E24B4A;
+  --warning: #EF9F27;
+  --info: #4A90E2;
+  --sidebar-width: 220px;
+  --card-radius: 12px;
+  --border: 0.5px solid rgba(0, 0, 0, 0.1);
+  --text-primary: #1a1d23;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --bg-surface: #ffffff;
+  --bg-page: #f4f6f9;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--primary-dark);
+  }
+}
+
+.text-primary-brand {
+  color: var(--primary) !important;
+}
+
+.text-income {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+.text-expense {
+  color: var(--danger) !important;
+  font-weight: 600;
+}
+
+.card {
+  background: var(--bg-surface);
+  border-radius: var(--card-radius);
+  border: var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.page-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 2rem;
+  background: var(--bg-page);
+  overflow-y: auto;
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
+  }
+}
+
+.btn-primary-brand {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: var(--primary-dark);
+    color: #fff;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-outline-brand {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--primary-light);
+  }
+}
+
+.form-control,
+.form-select {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  border: var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-primary);
+
+  &:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.12);
+  }
+
+  &.is-invalid {
+    border-color: var(--danger);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(226, 75, 74, 0.12);
+    }
+  }
+}
+
+.invalid-feedback {
+  color: var(--danger);
+  font-size: 0.75rem;
+}
+
+.badge-category {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+
+  &.housing { background: #E8F4FD; color: #1565C0; }
+  &.food { background: #FFF3E0; color: #E65100; }
+  &.transport { background: #E8EAF6; color: #283593; }
+  &.utilities { background: #F3E5F5; color: #6A1B9A; }
+  &.leisure { background: #FCE4EC; color: #880E4F; }
+  &.income { background: var(--primary-light); color: var(--primary-dark); }
+  &.other { background: #F5F5F5; color: #424242; }
+}
+
+.progress-bar-custom {
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+
+  &.warning { background: var(--warning); }
+  &.danger { background: var(--danger); }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-card {
+  background: #fff;
+  border-radius: var(--card-radius);
+  width: 100%;
+  max-width: 520px;
+  padding: 1.75rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-layout {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+}

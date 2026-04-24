@@ -1,0 +1,86 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="brand-logo">
+        <i class="bi bi-bar-chart-fill"></i>
+      </div>
+      <h1 class="auth-title">FinTrack</h1>
+      <p class="auth-subtitle">Sign in to your account</p>
+    </div>
+
+    @if (loginError()) {
+      <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+        <i class="bi bi-exclamation-circle-fill"></i>
+        {{ loginError() }}
+      </div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="email">Email Address</label>
+        <div class="input-group-custom">
+          <i class="bi bi-envelope input-icon"></i>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            [class.is-invalid]="emailCtrl.invalid && emailCtrl.touched"
+            formControlName="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+          />
+        </div>
+        @if (emailCtrl.invalid && emailCtrl.touched) {
+          <div class="invalid-feedback d-block">
+            @if (emailCtrl.errors?.['required']) { Email is required. }
+            @if (emailCtrl.errors?.['email']) { Enter a valid email address. }
+          </div>
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label" for="password">Password</label>
+        <div class="input-group-custom">
+          <i class="bi bi-lock input-icon"></i>
+          <input
+            id="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            class="form-control"
+            [class.is-invalid]="passwordCtrl.invalid && passwordCtrl.touched"
+            formControlName="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          />
+          <button type="button" class="password-toggle" (click)="togglePassword()">
+            <i class="bi" [class.bi-eye]="!showPassword()" [class.bi-eye-slash]="showPassword()"></i>
+          </button>
+        </div>
+        @if (passwordCtrl.invalid && passwordCtrl.touched) {
+          <div class="invalid-feedback d-block">
+            @if (passwordCtrl.errors?.['required']) { Password is required. }
+            @if (passwordCtrl.errors?.['minlength']) { Password must be at least 6 characters. }
+          </div>
+        }
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="isLoading()">
+        @if (isLoading()) {
+          <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+          Signing in...
+        } @else {
+          Sign In
+        }
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      Don't have an account?
+      <a routerLink="/auth/register">Create one</a>
+    </p>
+
+    <div class="demo-hint">
+      <i class="bi bi-info-circle me-1"></i>
+      Use any email &amp; password (6+ chars) to sign in
+    </div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<div class="page-layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <div class="page-header d-flex align-items-center justify-content-between">
+      <div>
+        <h1>Budgets</h1>
+        <p class="subtitle">
+          {{ budgetSvc.budgets().length }} categories &middot;
+          AED {{ budgetSvc.totalSpent().toLocaleString() }} spent of
+          AED {{ budgetSvc.totalBudget().toLocaleString() }}
+        </p>
+      </div>
+      <button class="btn-primary-brand" (click)="openAdd()">
+        <i class="bi bi-plus-lg me-1"></i> Add Budget
+      </button>
+    </div>
+
+    <!-- Summary Banner -->
+    <div class="summary-banner card mb-3">
+      <div class="summary-stat">
+        <span class="s-label">Total Budget</span>
+        <span class="s-value">AED {{ budgetSvc.totalBudget().toLocaleString() }}</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-stat">
+        <span class="s-label">Total Spent</span>
+        <span class="s-value" [style.color]="budgetSvc.totalSpent() > budgetSvc.totalBudget() ? 'var(--danger)' : 'var(--text-primary)'">
+          AED {{ budgetSvc.totalSpent().toLocaleString() }}
+        </span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-stat">
+        <span class="s-label">Remaining</span>
+        <span class="s-value positive">
+          AED {{ (budgetSvc.totalBudget() - budgetSvc.totalSpent()).toLocaleString() }}
+        </span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-stat">
+        <span class="s-label">Over Limit</span>
+        <span class="s-value" [style.color]="budgetSvc.overBudgetCount() > 0 ? 'var(--danger)' : 'var(--primary)'">
+          {{ budgetSvc.overBudgetCount() }} categor{{ budgetSvc.overBudgetCount() === 1 ? 'y' : 'ies' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Budget Cards Grid -->
+    <div class="budgets-grid">
+      @for (budget of budgetSvc.budgets(); track budget.id) {
+        <div class="budget-card" [class]="'border-' + getStatusClass(budget)">
+          <div class="budget-card-header">
+            <div class="budget-icon" [style.background]="budget.color + '20'" [style.color]="budget.color">
+              <i class="bi bi-tag-fill"></i>
+            </div>
+            <div class="budget-info">
+              <h4 class="budget-name">{{ budget.category }}</h4>
+              <span class="budget-status" [class]="getStatusClass(budget)">{{ getStatusLabel(budget) }}</span>
+            </div>
+            <div class="budget-actions">
+              <button class="btn-action edit" (click)="openEdit(budget)" title="Edit">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn-action delete" (click)="onDelete(budget)" title="Delete">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="budget-amounts">
+            <span class="spent-label">Spent</span>
+            <span class="pct-label" [style.color]="budgetSvc.getUsageColor(budget)">
+              {{ budgetSvc.getUsagePercent(budget) }}%
+            </span>
+          </div>
+
+          <div class="progress-track">
+            <div
+              class="progress-fill"
+              [style.width.%]="clamp(budgetSvc.getUsagePercent(budget))"
+              [style.background]="budgetSvc.getUsageColor(budget)">
+            </div>
+          </div>
+
+          <div class="budget-numbers">
+            <div>
+              <div class="amount-val">{{ budget.spent | aedCurrency }}</div>
+              <div class="amount-sub">spent</div>
+            </div>
+            <div class="text-end">
+              <div class="amount-val">{{ budget.limit | aedCurrency }}</div>
+              <div class="amount-sub">limit</div>
+            </div>
+          </div>
+
+          @if (budget.spent > budget.limit) {
+            <div class="over-alert">
+              <i class="bi bi-exclamation-triangle-fill me-1"></i>
+              Over by {{ (budget.spent - budget.limit) | aedCurrency }}
+            </div>
+          } @else {
+            <div class="remaining-info">
+              <i class="bi bi-check-circle me-1"></i>
+              {{ (budget.limit - budget.spent) | aedCurrency }} remaining
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    @if (budgetSvc.budgets().length === 0) {
+      <div class="empty-state card text-center py-5">
+        <i class="bi bi-pie-chart empty-icon d-block mb-3"></i>
+        <p class="mb-3">No budgets set up yet</p>
+        <button class="btn-primary-brand" (click)="openAdd()">Create your first budget</button>
+      </div>
+    }
+  </main>
+</div>
+
+@if (showForm()) {
+  <app-budget-form
+    [editBudget]="editingBudget()"
+    (closed)="closeForm()"
+    (saved)="onSaved($event)">
+  </app-budget-form>
+}

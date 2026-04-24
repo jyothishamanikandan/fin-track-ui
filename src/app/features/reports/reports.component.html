@@ -1,0 +1,144 @@
+<div class="page-layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <div class="page-header d-flex align-items-center justify-content-between">
+      <div>
+        <h1>Reports</h1>
+        <p class="subtitle">Financial insights &amp; analysis</p>
+      </div>
+      <div class="month-selector">
+        <label class="form-label mb-0 me-2">Viewing:</label>
+        <select class="form-select" style="width: auto;" [(ngModel)]="selectedMonth">
+          @for (m of availableMonths; track m.value) {
+            <option [value]="m.value">{{ m.label }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="stats-row">
+      <div class="stat-card card">
+        <div class="stat-icon" style="background: rgba(239,159,39,0.12); color: #EF9F27;">
+          <i class="bi bi-trophy-fill"></i>
+        </div>
+        <div class="stat-body">
+          <p class="stat-label">Highest Spend Category</p>
+          @if (reportSvc.highestSpendingCategory(); as cat) {
+            <p class="stat-value">{{ cat.category | titlecase }}</p>
+            <p class="stat-sub">{{ cat.amount | aedCurrency }}</p>
+          } @else {
+            <p class="stat-value">—</p>
+          }
+        </div>
+      </div>
+
+      <div class="stat-card card">
+        <div class="stat-icon" style="background: rgba(226,75,74,0.12); color: var(--danger);">
+          <i class="bi bi-arrow-up-circle-fill"></i>
+        </div>
+        <div class="stat-body">
+          <p class="stat-label">Biggest Single Expense</p>
+          @if (reportSvc.biggestExpense(); as txn) {
+            <p class="stat-value">{{ txn.amount | aedCurrency }}</p>
+            <p class="stat-sub">{{ txn.title }}</p>
+          } @else {
+            <p class="stat-value">—</p>
+          }
+        </div>
+      </div>
+
+      <div class="stat-card card">
+        <div class="stat-icon" style="background: rgba(74,144,226,0.12); color: #4A90E2;">
+          <i class="bi bi-calendar3"></i>
+        </div>
+        <div class="stat-body">
+          <p class="stat-label">Avg. Daily Spend</p>
+          <p class="stat-value">{{ reportSvc.averageDailySpend() | aedCurrency }}</p>
+          <p class="stat-sub">per day</p>
+        </div>
+      </div>
+
+      <div class="stat-card card">
+        <div class="stat-icon" style="background: rgba(29,158,117,0.12); color: var(--primary);">
+          <i class="bi bi-receipt"></i>
+        </div>
+        <div class="stat-body">
+          <p class="stat-label">Total Transactions</p>
+          <p class="stat-value">{{ reportSvc.selectedMonthTransactions().length }}</p>
+          <p class="stat-sub">this period</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bar Chart: Income vs Expenses -->
+    <div class="chart-card card mb-3">
+      <div class="chart-header">
+        <h3 class="chart-title">Income vs Expenses</h3>
+        <span class="chart-badge">Last 6 months</span>
+      </div>
+      <div class="chart-body">
+        <canvas baseChart
+          [data]="barChartData()"
+          [type]="'bar'"
+          [options]="barChartOptions">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Line Chart: Daily Spending -->
+    <div class="chart-card card">
+      <div class="chart-header">
+        <h3 class="chart-title">Daily Spending Trend</h3>
+        <span class="chart-badge">{{ selectedMonthLabel() }}</span>
+      </div>
+      <div class="chart-body">
+        <canvas baseChart
+          [data]="lineChartData()"
+          [type]="'line'"
+          [options]="lineChartOptions">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Monthly Table -->
+    <div class="card mt-3">
+      <div class="chart-header">
+        <h3 class="chart-title">Monthly Summary</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-custom">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th class="text-end">Income</th>
+              <th class="text-end">Expenses</th>
+              <th class="text-end">Net</th>
+              <th class="text-end">Savings Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of reportSvc.monthlyReports(); track r.month) {
+              <tr [class.active-row]="r.month === reportSvc.selectedMonth()">
+                <td><strong>{{ r.label }}</strong></td>
+                <td class="text-end text-income">{{ r.income | aedCurrency }}</td>
+                <td class="text-end text-expense">{{ r.expenses | aedCurrency }}</td>
+                <td class="text-end" [class.text-income]="r.net >= 0" [class.text-expense]="r.net < 0">
+                  {{ r.net | aedCurrency }}
+                </td>
+                <td class="text-end">
+                  @if (r.income > 0) {
+                    {{ (r.net / r.income * 100) | number:'1.0-0' }}%
+                  } @else {
+                    —
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
