@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/features/dashboard/dashboard.component.scss"],
+  "sourcesContent": [".metrics-grid {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  gap: 1rem;\n  margin-bottom: 1.25rem;\n}\n\n.charts-grid {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 1rem;\n  margin-bottom: 1.25rem;\n}\n\n.trend-row {\n  margin-bottom: 1.25rem;\n}\n\n.recent-row {\n  margin-bottom: 1rem;\n}\n\n@media (max-width: 1200px) {\n  .metrics-grid {\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n\n@media (max-width: 768px) {\n  .metrics-grid {\n    grid-template-columns: 1fr;\n  }\n\n  .charts-grid {\n    grid-template-columns: 1fr;\n  }\n\n  .main-content {\n    padding-bottom: 5rem;\n  }\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,yBAAA,OAAA,CAAA,EAAA;AACA,OAAA;AACA,iBAAA;;AAGF,CAAA;AACE,WAAA;AACA,yBAAA,IAAA;AACA,OAAA;AACA,iBAAA;;AAGF,CAAA;AACE,iBAAA;;AAGF,CAAA;AACE,iBAAA;;AAGF,QAAA,WAAA;AACE,GAvBF;AAwBI,2BAAA,OAAA,CAAA,EAAA;;;AAIJ,QAAA,WAAA;AACE,GA7BF;AA8BI,2BAAA;;AAGF,GA1BF;AA2BI,2BAAA;;AAGF,GAAA;AACE,oBAAA;;;",
+  "names": []
+}

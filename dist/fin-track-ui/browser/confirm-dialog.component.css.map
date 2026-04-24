@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;75cc141b336a2412330ff671f79aff5820f0775ca259e1d45acc908dda979354;C:/Users/jyothisha/project-2026/fin-track-ui/src/app/shared/components/confirm-dialog/confirm-dialog.component.ts"],
+  "sourcesContent": ["\n    .confirm-modal {\n      max-width: 420px;\n      text-align: center;\n    }\n\n    .confirm-icon {\n      font-size: 2.5rem;\n      color: #EF9F27;\n      margin-bottom: 1rem;\n    }\n\n    .confirm-title {\n      font-size: 1.1rem;\n      font-weight: 600;\n      margin-bottom: 0.5rem;\n      color: #1a1d23;\n    }\n\n    .confirm-message {\n      color: #6b7280;\n      font-size: 0.9rem;\n      margin-bottom: 1.5rem;\n    }\n\n    .confirm-actions {\n      display: flex;\n      gap: 0.75rem;\n      justify-content: center;\n\n      .btn {\n        padding: 0.5rem 1.5rem;\n        border-radius: 8px;\n        font-size: 0.875rem;\n        font-weight: 500;\n      }\n    }\n  "],
+  "mappings": ";AACI,CAAC;AACC,aAAW;AACX,cAAY;AACd;AAEA,CAAC;AACC,aAAW;AACX,SAAO;AACP,iBAAe;AACjB;AAEA,CAAC;AACC,aAAW;AACX,eAAa;AACb,iBAAe;AACf,SAAO;AACT;AAEA,CAAC;AACC,SAAO;AACP,aAAW;AACX,iBAAe;AACjB;AAEA,CAAC;AACC,WAAS;AACT,OAAK;AACL,mBAAiB;AAQnB;AAXA,CAAC,gBAKC,CAAC;AACC,WAAS,OAAO;AAChB,iBAAe;AACf,aAAW;AACX,eAAa;AACf;",
+  "names": []
+}

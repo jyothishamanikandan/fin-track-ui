@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;6bb60d88d48e0222680f8b983a15be4822b126cbc3bf758fbaca914d346dfafe;C:/Users/jyothisha/project-2026/fin-track-ui/src/app/features/dashboard/widgets/monthly-trend/monthly-trend.component.ts"],
+  "sourcesContent": ["\n    .widget-card {\n      background: #fff;\n      border-radius: var(--card-radius);\n      border: var(--border);\n      padding: 1.25rem;\n      height: 100%;\n    }\n\n    .widget-header {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n      margin-bottom: 1rem;\n    }\n\n    .widget-title {\n      font-size: 0.9375rem;\n      font-weight: 600;\n      margin: 0;\n    }\n\n    .widget-badge {\n      font-size: 0.75rem;\n      color: var(--text-secondary);\n      background: #F3F4F6;\n      padding: 0.2rem 0.6rem;\n      border-radius: 20px;\n    }\n\n    .chart-wrap {\n      position: relative;\n      height: 220px;\n    }\n  "],
+  "mappings": ";AACI,CAAC;AACC,cAAY;AACZ,iBAAe,IAAI;AACnB,UAAQ,IAAI;AACZ,WAAS;AACT,UAAQ;AACV;AAEA,CAAC;AACC,WAAS;AACT,eAAa;AACb,mBAAiB;AACjB,iBAAe;AACjB;AAEA,CAAC;AACC,aAAW;AACX,eAAa;AACb,UAAQ;AACV;AAEA,CAAC;AACC,aAAW;AACX,SAAO,IAAI;AACX,cAAY;AACZ,WAAS,OAAO;AAChB,iBAAe;AACjB;AAEA,CAAC;AACC,YAAU;AACV,UAAQ;AACV;",
+  "names": []
+}
