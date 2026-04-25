@@ -1,6 +1,5 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -37,15 +36,12 @@ import { AuthService } from '../../../core/auth/auth.service';
 
       <div class="sidebar-footer">
         <div class="user-info">
-          <div class="user-avatar">{{ getInitial() }}</div>
+          <div class="user-avatar">F</div>
           <div class="user-details">
-            <div class="user-name">{{ auth.userName() }}</div>
+            <div class="user-name">FinTrack</div>
             <div class="user-role">Personal</div>
           </div>
         </div>
-        <button class="btn-logout" (click)="auth.logout()" title="Logout">
-          <i class="bi bi-box-arrow-right"></i>
-        </button>
       </div>
     </aside>
 
@@ -71,9 +67,4 @@ import { AuthService } from '../../../core/auth/auth.service';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  protected readonly auth = inject(AuthService);
-
-  getInitial(): string {
-    return this.auth.userName().charAt(0).toUpperCase();
-  }
 }
